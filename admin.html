@@ -1,0 +1,896 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADMIN | PLACEMENT PORTAL | SAU</title>
+    <link rel="stylesheet" href="cssai.css">
+    <!-- Font Awesome for clean dashboard icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- EXISTING TOP BANNER -->
+    <header class="top-header">
+        <div class="banner">
+            <img src="C:/COLLAGE FILES/web design/semester project/sau placement portal/images/sauicon.jpg" alt="SAU Logo" width="65" height="65" onerror="this.src='https://via.placeholder.com/65?text=SAU'">
+            <span class="banner-title">PLACEMENT PORTAL | SOUTH ASIAN UNIVERSITY</span>
+            <span class="admin-badge"><i class="fa-solid fa-user-shield"></i> Admin Console</span>
+        </div>
+        <div class="banner2">
+            <button class="bannerbutton">HOME</button>
+            <button class="bannerbutton">ABOUT</button>
+            <button class="bannerbutton">ALUMNI</button>
+            <button class="bannerbutton logout-btn">LOGOUT</button>
+        </div>
+    </header>
+
+    <!-- MAIN APP CONTAINER -->
+    <div class="app-container">
+        
+        <!-- FIXED LEFT SIDEBAR -->
+        <aside class="sidebar">
+            <div class="sidebar-label">NAVIGATION</div>
+            <ul class="nav-list">
+                <li class="nav-item active" onclick="switchTab('dashboard', this)">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </li>
+                <li class="nav-item" onclick="switchTab('students', this)">
+                    <i class="fa-solid fa-user-graduate"></i> Students & Verification
+                    <span class="badge-pill">4</span>
+                </li>
+                <li class="nav-item" onclick="switchTab('drives', this)">
+                    <i class="fa-solid fa-briefcase"></i> Companies & Drives
+                </li>
+                <li class="nav-item" onclick="switchTab('applications', this)">
+                    <i class="fa-solid fa-users-viewfinder"></i> Applicant Tracking
+                </li>
+                <li class="nav-item" onclick="switchTab('communications', this)">
+                    <i class="fa-solid fa-bullhorn"></i> Announcements & Schedule
+                </li>
+                <li class="nav-item" onclick="switchTab('reports', this)">
+                    <i class="fa-solid fa-chart-pie"></i> Reports & Analytics
+                </li>
+            </ul>
+        </aside>
+
+        <!-- MAIN WORKSPACE AREA -->
+        <main class="main-content">
+
+            <!-- ==========================================
+                 VIEW 1: OVERVIEW DASHBOARD
+                 ========================================== -->
+            <section id="dashboard" class="tab-section active">
+                <div class="section-header">
+                    <h2>Placement Season Overview (2026–27)</h2>
+                    <button class="btn-primary" onclick="openDriveModal()"><i class="fa-solid fa-plus"></i> Post New Job Drive</button>
+                </div>
+
+                <!-- 1. HIGH-LEVEL KPI CARDS -->
+                <div class="kpi-grid">
+                    <div class="kpi-card">
+                        <div class="kpi-title">Total Registered Students</div>
+                        <div class="kpi-value">450</div>
+                        <div class="kpi-sub">438 Verified &bull; 12 Pending</div>
+                    </div>
+                    <div class="kpi-card highlight-green">
+                        <div class="kpi-title">Placed vs. Unplaced</div>
+                        <div class="kpi-value">78.2% <span class="kpi-small">(352 / 98)</span></div>
+                        <div class="progress-bar"><div class="progress-fill" style="width: 78.2%;"></div></div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Active Job Drives</div>
+                        <div class="kpi-value">14</div>
+                        <div class="kpi-sub">3 Closing within 48 hrs</div>
+                    </div>
+                    <div class="kpi-card">
+                        <div class="kpi-title">Recruiting Companies</div>
+                        <div class="kpi-value">68</div>
+                        <div class="kpi-sub">+12 New Onboarded</div>
+                    </div>
+                    <div class="kpi-card highlight-blue">
+                        <div class="kpi-title">Package Metrics (CTC)</div>
+                        <div class="kpi-value">₹14.2 LPA <span class="kpi-small">Avg</span></div>
+                        <div class="kpi-sub">Highest: <strong>₹42.0 LPA</strong> &bull; Median: <strong>₹11.5 LPA</strong></div>
+                    </div>
+                </div>
+
+                <!-- MIDDLE SECTION: SPLIT VIEW (2 COLUMNS) -->
+                <div class="split-grid">
+                    <!-- LEFT: URGENT ACTION ITEMS -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-bell text-amber"></i> Urgent Action Items</h3>
+                            <button class="link-btn" onclick="switchTab('students', document.querySelectorAll('.nav-item')[1])">View All</button>
+                        </div>
+                        <ul class="action-list">
+                            <li class="action-item">
+                                <div>
+                                    <strong>4 Student Profiles Pending Verification</strong>
+                                    <p>BTech CSE &amp; MNC students awaiting CGPA &amp; resume approval.</p>
+                                </div>
+                                <button class="btn-sm btn-outline" onclick="switchTab('students', document.querySelectorAll('.nav-item')[1])">Review</button>
+                            </li>
+                            <li class="action-item">
+                                <div>
+                                    <strong>Microsoft SDE-1 Deadline Closing Today</strong>
+                                    <p>142 eligible applicants registered. Export list at 5:00 PM.</p>
+                                </div>
+                                <button class="btn-sm btn-outline" onclick="exportTableToCSV('microsoft_applicants.csv')">Export CSV</button>
+                            </li>
+                            <li class="action-item">
+                                <div>
+                                    <strong>Qualcomm OA Shortlist Pending</strong>
+                                    <p>Upload round 1 test results to notify 45 shortlisted candidates.</p>
+                                </div>
+                                <button class="btn-sm btn-outline" onclick="switchTab('applications', document.querySelectorAll('.nav-item')[3])">Update</button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- RIGHT: UPCOMING DRIVE SCHEDULE / TIMELINE -->
+                    <div class="panel-card">
+                        <div class="panel-header">
+                            <h3><i class="fa-solid fa-calendar-days text-blue"></i> Upcoming Drive Schedule</h3>
+                            <button class="link-btn" onclick="switchTab('communications', document.querySelectorAll('.nav-item')[4])">Full Calendar</button>
+                        </div>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <span class="time-badge">Tomorrow, 10:00 AM</span>
+                                <div class="timeline-content">
+                                    <strong>Atlassian &mdash; Pre-Placement Talk (PPT)</strong>
+                                    <p>Main Auditorium &bull; Mandatory for all applicants</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="time-badge">Nov 25, 02:00 PM</span>
+                                <div class="timeline-content">
+                                    <strong>Adobe &mdash; Online Coding Assessment (OA)</strong>
+                                    <p>Computer Lab 1 &amp; 2 &bull; 98 Shortlisted Students</p>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <span class="time-badge">Nov 27, 09:30 AM</span>
+                                <div class="timeline-content">
+                                    <strong>TCS Digital &mdash; Technical &amp; HR Interviews</strong>
+                                    <p>Placement Cell Rooms 101–105</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- BOTTOM SECTION: RECENT JOB DRIVES TABLE -->
+                <div class="panel-card mt-20">
+                    <div class="panel-header">
+                        <h3>Recent Job Drives</h3>
+                        <button class="link-btn" onclick="switchTab('drives', document.querySelectorAll('.nav-item')[2])">Manage All Drives &rarr;</button>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table" id="recentDrivesTable">
+                            <thead>
+                                <tr>
+                                    <th>Company</th>
+                                    <th>Role</th>
+                                    <th>CTC</th>
+                                    <th>Eligibility</th>
+                                    <th>Applicants</th>
+                                    <th>Status</th>
+                                    <th>Quick Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Microsoft</strong></td>
+                                    <td>Software Engineer</td>
+                                    <td>₹42.0 LPA</td>
+                                    <td>CGPA &ge; 8.0 | CSE, MNC</td>
+                                    <td>142</td>
+                                    <td><span class="status-pill status-open">Applications Open</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-sm btn-primary" onclick="switchTab('applications', document.querySelectorAll('.nav-item')[3])">Applicants</button>
+                                        <button class="btn-sm btn-outline" onclick="openDriveModal('Microsoft')">Edit</button>
+                                        <button class="btn-sm btn-success" onclick="exportTableToCSV('Microsoft_Drive.csv')"><i class="fa-solid fa-file-csv"></i> CSV</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Adobe</strong></td>
+                                    <td>Member of Technical Staff</td>
+                                    <td>₹36.5 LPA</td>
+                                    <td>CGPA &ge; 7.5 | CSE, MNC, ECE</td>
+                                    <td>98</td>
+                                    <td><span class="status-pill status-oa">Shortlisting / OA</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-sm btn-primary" onclick="switchTab('applications', document.querySelectorAll('.nav-item')[3])">Applicants</button>
+                                        <button class="btn-sm btn-outline" onclick="openDriveModal('Adobe')">Edit</button>
+                                        <button class="btn-sm btn-success" onclick="exportTableToCSV('Adobe_Drive.csv')"><i class="fa-solid fa-file-csv"></i> CSV</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Deloitte India</strong></td>
+                                    <td>Technology Analyst</td>
+                                    <td>₹9.5 LPA</td>
+                                    <td>CGPA &ge; 6.5 | All Branches</td>
+                                    <td>265</td>
+                                    <td><span class="status-pill status-interview">Interviews</span></td>
+                                    <td class="action-btns">
+                                        <button class="btn-sm btn-primary" onclick="switchTab('applications', document.querySelectorAll('.nav-item')[3])">Applicants</button>
+                                        <button class="btn-sm btn-outline" onclick="openDriveModal('Deloitte')">Edit</button>
+                                        <button class="btn-sm btn-success" onclick="exportTableToCSV('Deloitte_Drive.csv')"><i class="fa-solid fa-file-csv"></i> CSV</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VIEW 2: STUDENT MANAGEMENT & VERIFICATION
+                 ========================================== -->
+            <section id="students" class="tab-section">
+                <div class="section-header">
+                    <h2>Student Management &amp; Profile Verification</h2>
+                    <button class="btn-success" onclick="exportTableToCSV('SAU_Students_Directory.csv')"><i class="fa-solid fa-download"></i> Export Filtered Directory</button>
+                </div>
+
+                <!-- PROFILE VERIFICATION QUEUE -->
+                <div class="panel-card mb-20">
+                    <div class="panel-header">
+                        <h3><i class="fa-solid fa-user-check text-amber"></i> Profile Verification Queue (Pending Approval)</h3>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Enrollment ID</th>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>Uploaded CGPA</th>
+                                    <th>Active Backlogs</th>
+                                    <th>Documents</th>
+                                    <th>Verification Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="verificationQueueBody">
+                                <tr>
+                                    <td>SAU/BTECH/2026/014</td>
+                                    <td><strong>Aarav Sharma</strong></td>
+                                    <td>BTech MNC</td>
+                                    <td>8.74</td>
+                                    <td>0</td>
+                                    <td><a href="#" class="doc-link"><i class="fa-solid fa-file-pdf"></i> Marksheet &amp; Resume</a></td>
+                                    <td class="action-btns">
+                                        <button class="btn-sm btn-success" onclick="verifyStudent(this, 'Aarav Sharma')">Approve</button>
+                                        <button class="btn-sm btn-danger" onclick="rejectStudent(this, 'Aarav Sharma')">Reject</button>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>SAU/BTECH/2026/042</td>
+                                    <td><strong>Sneha Verma</strong></td>
+                                    <td>BTech CSE</td>
+                                    <td>9.12</td>
+                                    <td>0</td>
+                                    <td><a href="#" class="doc-link"><i class="fa-solid fa-file-pdf"></i> Marksheet &amp; Resume</a></td>
+                                    <td class="action-btns">
+                                        <button class="btn-sm btn-success" onclick="verifyStudent(this, 'Sneha Verma')">Approve</button>
+                                        <button class="btn-sm btn-danger" onclick="rejectStudent(this, 'Sneha Verma')">Reject</button>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- ADVANCED FILTERING & STUDENT DIRECTORY -->
+                <div class="panel-card">
+                    <div class="panel-header">
+                        <h3>Master Student Directory &amp; Status Overrides</h3>
+                    </div>
+
+                    <!-- FILTER BAR -->
+                    <div class="filter-bar">
+                        <input type="text" id="studentSearch" placeholder="Search by name, roll no, or skill (e.g., C, Python)..." onkeyup="filterStudents()">
+                        <select id="branchFilter" onchange="filterStudents()">
+                            <option value="ALL">All Branches</option>
+                            <option value="CSE">CSE</option>
+                            <option value="MNC">MNC</option>
+                            <option value="ECE">ECE</option>
+                        </select>
+                        <input type="number" id="cgpaFilter" step="0.1" min="0" max="10" placeholder="Min CGPA (e.g. 7.5)" onkeyup="filterStudents()" onchange="filterStudents()">
+                        <select id="backlogFilter" onchange="filterStudents()">
+                            <option value="ALL">Any Backlogs</option>
+                            <option value="0">0 Backlogs Only</option>
+                            <option value="1">Max 1 Backlog</option>
+                        </select>
+                        <select id="statusFilter" onchange="filterStudents()">
+                            <option value="ALL">All Statuses</option>
+                            <option value="Placed">Placed</option>
+                            <option value="Unplaced">Unplaced</option>
+                            <option value="Opted-Out">Opted-Out</option>
+                            <option value="Blocked">Blocked</option>
+                        </select>
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="data-table" id="masterStudentTable">
+                            <thead>
+                                <tr>
+                                    <th>Roll No</th>
+                                    <th>Name</th>
+                                    <th>Branch</th>
+                                    <th>CGPA</th>
+                                    <th>Backlogs</th>
+                                    <th>Key Skills</th>
+                                    <th>Placement Status</th>
+                                    <th>Admin Override</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr data-branch="MNC" data-cgpa="8.9" data-backlogs="0" data-status="Placed">
+                                    <td>SAU26MNC01</td>
+                                    <td><strong>Bibekananda Mishra</strong></td>
+                                    <td>MNC</td>
+                                    <td>8.90</td>
+                                    <td>0</td>
+                                    <td>C, JavaScript, Firebase, Linear Opt</td>
+                                    <td><span class="status-pill status-open">Placed (₹18 LPA)</span></td>
+                                    <td>
+                                        <select class="override-select" onchange="overrideStudentStatus(this)">
+                                            <option value="">Change Status...</option>
+                                            <option value="Placed">Mark Placed (Off-Campus)</option>
+                                            <option value="Unplaced">Reset to Unplaced</option>
+                                            <option value="Blocked">Block from Drives</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr data-branch="CSE" data-cgpa="7.8" data-backlogs="0" data-status="Unplaced">
+                                    <td>SAU26CSE14</td>
+                                    <td><strong>Rohan Kulkarni</strong></td>
+                                    <td>CSE</td>
+                                    <td>7.80</td>
+                                    <td>0</td>
+                                    <td>Java, Spring Boot, SQL</td>
+                                    <td><span class="status-pill status-oa">Unplaced</span></td>
+                                    <td>
+                                        <select class="override-select" onchange="overrideStudentStatus(this)">
+                                            <option value="">Change Status...</option>
+                                            <option value="Placed">Mark Placed (Off-Campus)</option>
+                                            <option value="Opted-Out">Mark Opted-Out</option>
+                                            <option value="Blocked">Block from Drives</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr data-branch="ECE" data-cgpa="6.9" data-backlogs="1" data-status="Unplaced">
+                                    <td>SAU26ECE09</td>
+                                    <td><strong>Ananya Das</strong></td>
+                                    <td>ECE</td>
+                                    <td>6.90</td>
+                                    <td>1</td>
+                                    <td>Verilog, Embedded C, MATLAB</td>
+                                    <td><span class="status-pill status-oa">Unplaced</span></td>
+                                    <td>
+                                        <select class="override-select" onchange="overrideStudentStatus(this)">
+                                            <option value="">Change Status...</option>
+                                            <option value="Placed">Mark Placed (Off-Campus)</option>
+                                            <option value="Opted-Out">Mark Opted-Out</option>
+                                            <option value="Blocked">Block from Drives</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                                <tr data-branch="CSE" data-cgpa="8.4" data-backlogs="0" data-status="Opted-Out">
+                                    <td>SAU26CSE22</td>
+                                    <td><strong>Kabir Mehta</strong></td>
+                                    <td>CSE</td>
+                                    <td>8.40</td>
+                                    <td>0</td>
+                                    <td>Python, ML, PyTorch (Higher Studies)</td>
+                                    <td><span class="status-pill status-neutral">Opted-Out</span></td>
+                                    <td>
+                                        <select class="override-select" onchange="overrideStudentStatus(this)">
+                                            <option value="">Change Status...</option>
+                                            <option value="Unplaced">Re-enable for Drives</option>
+                                            <option value="Blocked">Block from Drives</option>
+                                        </select>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VIEW 3: COMPANY & JOB DRIVE MANAGEMENT
+                 ========================================== -->
+            <section id="drives" class="tab-section">
+                <div class="section-header">
+                    <h2>Company &amp; Job Drive Management</h2>
+                    <button class="btn-primary" onclick="openDriveModal()"><i class="fa-solid fa-plus"></i> Create New Job Drive</button>
+                </div>
+
+                <!-- DRIVE PIPELINE TRACKER -->
+                <div class="pipeline-grid">
+                    <div class="pipeline-col">
+                        <div class="pipeline-header bg-gray">Upcoming (2)</div>
+                        <div class="pipeline-card">
+                            <h4>Google India</h4>
+                            <p>SWE University Grad &bull; ₹38 LPA</p>
+                            <span class="tag">Min CGPA: 8.0</span> <span class="tag">CSE, MNC</span>
+                        </div>
+                        <div class="pipeline-card">
+                            <h4>Texas Instruments</h4>
+                            <p>Analog Design &bull; ₹24 LPA</p>
+                            <span class="tag">Min CGPA: 7.5</span> <span class="tag">ECE</span>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-header bg-blue">Applications Open (3)</div>
+                        <div class="pipeline-card">
+                            <h4>Microsoft</h4>
+                            <p>SDE-1 &bull; ₹42 LPA</p>
+                            <small>142 Applicants &bull; Closes Today</small>
+                        </div>
+                        <div class="pipeline-card">
+                            <h4>Amazon</h4>
+                            <p>SDE 6M Intern + FTE &bull; ₹28 LPA</p>
+                            <small>188 Applicants &bull; Closes Nov 28</small>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-header bg-amber">Shortlisting / OA (2)</div>
+                        <div class="pipeline-card">
+                            <h4>Adobe</h4>
+                            <p>MTS-1 &bull; ₹36.5 LPA</p>
+                            <small>OA scheduled for Nov 25</small>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-header bg-purple">Interviews (2)</div>
+                        <div class="pipeline-card">
+                            <h4>Deloitte India</h4>
+                            <p>Tech Analyst &bull; ₹9.5 LPA</p>
+                            <small>48 candidates in Tech Round 2</small>
+                        </div>
+                    </div>
+
+                    <div class="pipeline-col">
+                        <div class="pipeline-header bg-green">Completed (59)</div>
+                        <div class="pipeline-card">
+                            <h4>Goldman Sachs</h4>
+                            <p>Analyst &bull; ₹26 LPA</p>
+                            <small><strong>11 Offers Rolled Out</strong></small>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VIEW 4: APPLICANT TRACKING & SHORTLISTING
+                 ========================================== -->
+            <section id="applications" class="tab-section">
+                <div class="section-header">
+                    <h2>Applicant Tracking &amp; Shortlisting</h2>
+                    <div class="action-btns">
+                        <select id="driveSelector" class="header-select">
+                            <option>Microsoft &mdash; SDE-1 (142 Applicants)</option>
+                            <option>Adobe &mdash; MTS-1 (98 Applicants)</option>
+                            <option>Deloitte &mdash; Analyst (265 Applicants)</option>
+                        </select>
+                        <button class="btn-success" onclick="exportTableToCSV('Shortlisted_Applicants_HR.csv')">
+                            <i class="fa-solid fa-file-excel"></i> Export List for HR
+                        </button>
+                    </div>
+                </div>
+
+                <!-- BULK STAGE UPDATE BAR -->
+                <div class="bulk-bar">
+                    <span><strong>Bulk Stage Update:</strong> Move selected students to &rarr;</span>
+                    <select id="bulkStageSelect">
+                        <option value="Shortlisted for OA">Shortlisted for Test (OA)</option>
+                        <option value="Interview Round">Interview Round</option>
+                        <option value="Selected">Selected (Offer Rolled Out)</option>
+                        <option value="Rejected">Rejected</option>
+                    </select>
+                    <button class="btn-primary btn-sm" onclick="applyBulkStage()">Apply to Selected</button>
+                </div>
+
+                <div class="panel-card">
+                    <div class="table-responsive">
+                        <table class="data-table" id="applicantsTable">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="selectAllApps" onclick="toggleAllCheckboxes(this)"></th>
+                                    <th>Student Name</th>
+                                    <th>Branch</th>
+                                    <th>CGPA</th>
+                                    <th>Contact Email</th>
+                                    <th>Resume</th>
+                                    <th>Current Stage</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="app-checkbox"></td>
+                                    <td><strong>Sneha Verma</strong></td>
+                                    <td>CSE</td>
+                                    <td>9.12</td>
+                                    <td>sneha.v@students.sau.ac.in</td>
+                                    <td><a href="#" class="doc-link">View PDF</a></td>
+                                    <td class="stage-cell"><span class="status-pill status-oa">Applied</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="app-checkbox"></td>
+                                    <td><strong>Aarav Sharma</strong></td>
+                                    <td>MNC</td>
+                                    <td>8.74</td>
+                                    <td>aarav.s@students.sau.ac.in</td>
+                                    <td><a href="#" class="doc-link">View PDF</a></td>
+                                    <td class="stage-cell"><span class="status-pill status-oa">Applied</span></td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="app-checkbox"></td>
+                                    <td><strong>Priya Nair</strong></td>
+                                    <td>CSE</td>
+                                    <td>8.45</td>
+                                    <td>priya.n@students.sau.ac.in</td>
+                                    <td><a href="#" class="doc-link">View PDF</a></td>
+                                    <td class="stage-cell"><span class="status-pill status-interview">Shortlisted for OA</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VIEW 5: COMMUNICATION & SCHEDULE
+                 ========================================== -->
+            <section id="communications" class="tab-section">
+                <div class="section-header">
+                    <h2>Targeted Notifications &amp; Test Schedule</h2>
+                </div>
+
+                <div class="split-grid">
+                    <!-- TARGETED ANNOUNCEMENT COMPOSER -->
+                    <div class="panel-card">
+                        <h3><i class="fa-solid fa-paper-plane"></i> Send Targeted Notification / Email Alert</h3>
+                        <form class="admin-form" onsubmit="sendAnnouncement(event)">
+                            <label>Target Audience Group</label>
+                            <select required>
+                                <option>All Unplaced Students with CGPA &ge; 7.5</option>
+                                <option>All Applicants Shortlisted for Adobe OA</option>
+                                <option>All BTech CSE &amp; MNC Final Year Students</option>
+                                <option>Students with Pending Profile Verification</option>
+                            </select>
+
+                            <label>Subject / Headline</label>
+                            <input type="text" placeholder="e.g., Mandatory Pre-Placement Talk for Atlassian Tomorrow" required>
+
+                            <label>Message Body</label>
+                            <textarea rows="4" placeholder="Enter venue, timing, dress code, or test link details..." required></textarea>
+
+                            <div class="checkbox-row">
+                                <label><input type="checkbox" checked> Publish on Student Portal Dashboard</label>
+                                <label><input type="checkbox" checked> Send Automated Email Blast</label>
+                            </div>
+
+                            <button type="submit" class="btn-primary">Send Notification Now</button>
+                        </form>
+                    </div>
+
+                    <!-- SHARED INTERVIEW & TEST CALENDAR -->
+                    <div class="panel-card">
+                        <h3><i class="fa-solid fa-calendar-check"></i> Master Test &amp; Interview Calendar</h3>
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Date &amp; Slot</th>
+                                    <th>Company &amp; Event</th>
+                                    <th>Venue / Mode</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Nov 23</strong><br>10:00 AM - 11:30 AM</td>
+                                    <td>Atlassian &mdash; Pre-Placement Talk</td>
+                                    <td>Main Auditorium</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nov 25</strong><br>02:00 PM - 04:00 PM</td>
+                                    <td>Adobe &mdash; Online Assessment (OA)</td>
+                                    <td>CSE Labs 1 &amp; 2</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nov 27</strong><br>09:30 AM - 05:00 PM</td>
+                                    <td>TCS Digital &mdash; Technical Interviews</td>
+                                    <td>Placement Block</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>Nov 29</strong><br>10:00 AM - 04:00 PM</td>
+                                    <td>Qualcomm &mdash; Hardware &amp; Embedded Rounds</td>
+                                    <td>Seminar Hall B</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ==========================================
+                 VIEW 6: REPORTS & ANALYTICS
+                 ========================================== -->
+            <section id="reports" class="tab-section">
+                <div class="section-header">
+                    <h2>Placement Reports &amp; Visual Analytics</h2>
+                    <button class="btn-primary" onclick="window.print()"><i class="fa-solid fa-print"></i> Print / Save PDF Report</button>
+                </div>
+
+                <div class="split-grid">
+                    <!-- BRANCH-WISE PLACEMENT BAR CHART -->
+                    <div class="panel-card">
+                        <h3>Branch-Wise Placement Percentage</h3>
+                        <p class="text-muted mb-20">Overall Campus Placement Rate: <strong>78.2%</strong></p>
+
+                        <div class="chart-row">
+                            <div class="chart-label"><span>BTech Computer Science (CSE)</span><strong>80.0%</strong></div>
+                            <div class="bar-bg"><div class="bar-fill bg-blue" style="width: 80%;">144 / 180 Placed</div></div>
+                        </div>
+
+                        <div class="chart-row">
+                            <div class="chart-label"><span>BTech Math &amp; Computing (MNC)</span><strong>79.2%</strong></div>
+                            <div class="bar-bg"><div class="bar-fill bg-green" style="width: 79.2%;">95 / 120 Placed</div></div>
+                        </div>
+
+                        <div class="chart-row">
+                            <div class="chart-label"><span>BTech Electronics (ECE)</span><strong>75.3%</strong></div>
+                            <div class="bar-bg"><div class="bar-fill bg-amber" style="width: 75.3%;">113 / 150 Placed</div></div>
+                        </div>
+                    </div>
+
+                    <!-- OFFER DISTRIBUTION TIERS -->
+                    <div class="panel-card">
+                        <h3>Offer Distribution by Compensation Tier</h3>
+                        <p class="text-muted mb-20">Total Offers Rolled Out: <strong>384 Offers</strong> (incl. dual offers)</p>
+
+                        <div class="tier-card tier-1">
+                            <div>
+                                <strong>Tier-1 (Super Dream &ge; ₹20 LPA)</strong>
+                                <p>Microsoft, Adobe, Goldman Sachs, Atlassian</p>
+                            </div>
+                            <div class="tier-stat">86 Offers (22.4%)</div>
+                        </div>
+
+                        <div class="tier-card tier-2">
+                            <div>
+                                <strong>Tier-2 (Dream ₹10 – ₹19.9 LPA)</strong>
+                                <p>Oracle, Cisco, SAP Labs, ZS Associates</p>
+                            </div>
+                            <div class="tier-stat">164 Offers (42.7%)</div>
+                        </div>
+
+                        <div class="tier-card tier-3">
+                            <div>
+                                <strong>Tier-3 (Standard / Mass &lt; ₹10 LPA)</strong>
+                                <p>Deloitte, TCS Digital, Infosys Specialist</p>
+                            </div>
+                            <div class="tier-stat">134 Offers (34.9%)</div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- ==========================================
+         MODAL: CREATE / EDIT JOB DRIVE + ELIGIBILITY RULES
+         ========================================== -->
+    <div id="driveModal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-header">
+                <h3 id="modalTitle">Create New Job Drive</h3>
+                <button class="close-modal" onclick="closeDriveModal()">&times;</button>
+            </div>
+            <form class="admin-form" onsubmit="saveJobDrive(event)">
+                <div class="form-grid-2">
+                    <div>
+                        <label>Company Name *</label>
+                        <input type="text" id="compName" placeholder="e.g., Nvidia" required>
+                    </div>
+                    <div>
+                        <label>Job Role / Profile *</label>
+                        <input type="text" id="jobRole" placeholder="e.g., Systems Software Engineer" required>
+                    </div>
+                    <div>
+                        <label>CTC / Stipend Breakdown *</label>
+                        <input type="text" id="jobCtc" placeholder="e.g., ₹24.0 LPA (Base: 16L)" required>
+                    </div>
+                    <div>
+                        <label>Job Location *</label>
+                        <input type="text" id="jobLocation" placeholder="e.g., Bengaluru / Gurugram" required>
+                    </div>
+                    <div>
+                        <label>Service Bond Details</label>
+                        <input type="text" id="jobBond" placeholder="e.g., None / 1 Year">
+                    </div>
+                    <div>
+                        <label>Application Deadline *</label>
+                        <input type="datetime-local" id="jobDeadline" required>
+                    </div>
+                </div>
+
+                <div class="eligibility-box">
+                    <h4><i class="fa-solid fa-filter"></i> Automated Eligibility Rules (Auto-Blocks Ineligible Students)</h4>
+                    <div class="form-grid-2">
+                        <div>
+                            <label>Minimum CGPA Cutoff</label>
+                            <input type="number" step="0.1" min="0" max="10" value="7.5" required>
+                        </div>
+                        <div>
+                            <label>Maximum Allowed Active Backlogs</label>
+                            <input type="number" min="0" max="5" value="0" required>
+                        </div>
+                    </div>
+                    <label class="mt-10">Allowed Departments / Branches:</label>
+                    <div class="checkbox-row">
+                        <label><input type="checkbox" checked> BTech CSE</label>
+                        <label><input type="checkbox" checked> BTech MNC</label>
+                        <label><input type="checkbox"> BTech ECE</label>
+                        <label><input type="checkbox"> MSc CS</label>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn-outline" onclick="closeDriveModal()">Cancel</button>
+                    <button type="submit" class="btn-primary">Publish Job Drive</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- ==========================================
+         JAVASCRIPT FOR INTERACTIVITY
+         ========================================== -->
+    <script>
+        // 1. Sidebar Tab Switching
+        function switchTab(tabId, element) {
+            document.querySelectorAll('.tab-section').forEach(sec => sec.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(nav => nav.classList.remove('active'));
+            
+            document.getElementById(tabId).classList.add('active');
+            if (element) element.classList.add('active');
+        }
+
+        // 2. Modal Open/Close for Job Drives
+        function openDriveModal(company = '') {
+            document.getElementById('driveModal').style.display = 'flex';
+            if (company) {
+                document.getElementById('modalTitle').innerText = 'Edit Job Drive: ' + company;
+                document.getElementById('compName').value = company;
+            } else {
+                document.getElementById('modalTitle').innerText = 'Create New Job Drive';
+                document.getElementById('compName').value = '';
+            }
+        }
+
+        function closeDriveModal() {
+            document.getElementById('driveModal').style.display = 'none';
+        }
+
+        function saveJobDrive(e) {
+            e.preventDefault();
+            const company = document.getElementById('compName').value;
+            alert('Job Drive for "' + company + '" has been published with automated eligibility rules!');
+            closeDriveModal();
+        }
+
+        // 3. Student Verification Queue Actions
+        function verifyStudent(btn, name) {
+            const row = btn.closest('tr');
+            row.style.backgroundColor = '#e6f7ed';
+            setTimeout(() => row.remove(), 400);
+            alert(name + ' has been verified and is now eligible to apply for drives.');
+        }
+
+        function rejectStudent(btn, name) {
+            const row = btn.closest('tr');
+            row.style.backgroundColor = '#fdecea';
+            setTimeout(() => row.remove(), 400);
+            alert(name + '\'s profile was sent back for document correction.');
+        }
+
+        // 4. Advanced Student Filtering
+        function filterStudents() {
+            const search = document.getElementById('studentSearch').value.toLowerCase();
+            const branch = document.getElementById('branchFilter').value;
+            const minCgpa = parseFloat(document.getElementById('cgpaFilter').value) || 0;
+            const maxBacklogs = document.getElementById('backlogFilter').value;
+            const status = document.getElementById('statusFilter').value;
+
+            const rows = document.querySelectorAll('#masterStudentTable tbody tr');
+            rows.forEach(row => {
+                const text = row.innerText.toLowerCase();
+                const rBranch = row.getAttribute('data-branch');
+                const rCgpa = parseFloat(row.getAttribute('data-cgpa'));
+                const rBacklogs = parseInt(row.getAttribute('data-backlogs'));
+                const rStatus = row.getAttribute('data-status');
+
+                const matchesSearch = text.includes(search);
+                const matchesBranch = (branch === 'ALL' || rBranch === branch);
+                const matchesCgpa = (rCgpa >= minCgpa);
+                const matchesBacklog = (maxBacklogs === 'ALL' || rBacklogs <= parseInt(maxBacklogs));
+                const matchesStatus = (status === 'ALL' || rStatus === status);
+
+                row.style.display = (matchesSearch && matchesBranch && matchesCgpa && matchesBacklog && matchesStatus) ? '' : 'none';
+            });
+        }
+
+        // 5. Status Override
+        function overrideStudentStatus(selectEl) {
+            if (!selectEl.value) return;
+            const row = selectEl.closest('tr');
+            const statusCell = row.cells[6];
+            statusCell.innerHTML = `<span class="status-pill status-interview">${selectEl.value} (Admin Override)</span>`;
+            row.setAttribute('data-status', selectEl.value);
+            selectEl.value = '';
+        }
+
+        // 6. Bulk Applicant Stage Updates
+        function toggleAllCheckboxes(source) {
+            document.querySelectorAll('.app-checkbox').forEach(cb => cb.checked = source.checked);
+        }
+
+        function applyBulkStage() {
+            const stage = document.getElementById('bulkStageSelect').value;
+            const checkedBoxes = document.querySelectorAll('.app-checkbox:checked');
+            if (checkedBoxes.length === 0) {
+                alert('Please select at least one student first.');
+                return;
+            }
+            checkedBoxes.forEach(cb => {
+                const row = cb.closest('tr');
+                row.querySelector('.stage-cell').innerHTML = `<span class="status-pill status-open">${stage}</span>`;
+                cb.checked = false;
+            });
+            document.getElementById('selectAllApps').checked = false;
+            alert(`Updated ${checkedBoxes.length} student(s) to "${stage}".`);
+        }
+
+        // 7. One-Click CSV Export
+        function exportTableToCSV(filename) {
+            let csv = [];
+            const visibleTable = document.querySelector('.tab-section.active table') || document.getElementById('recentDrivesTable');
+            const rows = visibleTable.querySelectorAll('tr');
+            
+            for (let i = 0; i < rows.length; i++) {
+                if (rows[i].style.display === 'none') continue;
+                let row = [], cols = rows[i].querySelectorAll('td, th');
+                for (let j = 0; j < cols.length - 1; j++) {
+                    row.push('"' + cols[j].innerText.replace(/(\r\n|\n|\r)/gm, ' ').trim() + '"');
+                }
+                csv.push(row.join(','));
+            }
+
+            const csvFile = new Blob([csv.join('\n')], { type: 'text/csv' });
+            const downloadLink = document.createElement('a');
+            downloadLink.download = filename;
+            downloadLink.href = window.URL.createObjectURL(csvFile);
+            downloadLink.style.display = 'none';
+            document.body.appendChild(downloadLink);
+            downloadLink.click();
+            document.body.removeChild(downloadLink);
+        }
+
+        // 8. Announcement Form
+        function sendAnnouncement(e) {
+            e.preventDefault();
+            alert('Targeted notification has been sent via Email and published to the Student Portal!');
+            e.target.reset();
+        }
+    </script>
+</body>
+</html>
